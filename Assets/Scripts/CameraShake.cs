@@ -5,9 +5,9 @@ public class CameraShake : MonoBehaviour
 {
     [SerializeField] private float _duration;
     [SerializeField] private float _amount;
-    private float _fakeDelta;
 
     private Vector3 _originalPos;
+    private float _fakeDelta;
     private float _timeAtCurrentFrame;
     private float _timeAtLastFrame;
 
@@ -29,9 +29,7 @@ public class CameraShake : MonoBehaviour
         while (duration > 0)
         {
             transform.localPosition = _originalPos + Random.insideUnitSphere * amount;
-
             duration -= _fakeDelta;
-
             yield return null;
         }
 

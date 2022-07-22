@@ -19,12 +19,12 @@ namespace Player
         public UnityEvent OnBoostActivate;
 
         private Coroutine _coroutine;
-        private bool _isOnPlatform;
+        private GameEffectsPlayer _gameEffectsPlayer;
         private Vector3 _jumpPosition;
-        private Particles _particles;
         private Platform _platform;
         private LayerCheck _platformCheck;
         private Rigidbody2D _rigidbody;
+        private bool  _isOnPlatform;
 
         public float NextPositionYAfterBoost => 25f;
 
@@ -38,7 +38,7 @@ namespace Player
 
         private void Awake()
         {
-            _particles = GetComponent<Particles>();
+            _gameEffectsPlayer = GetComponent<GameEffectsPlayer>();
             _rigidbody = GetComponent<Rigidbody2D>();
             _platformCheck = GetComponent<LayerCheck>();
         }
@@ -85,7 +85,7 @@ namespace Player
                 _rigidbody.AddForce(Vector3.down * _tapDownForce, ForceMode2D.Impulse);
             }
 
-            _particles.PlayJumpVFX();
+            _gameEffectsPlayer.PlayJumpVFX();
         }
 
         private void CheckSurroundings()
@@ -130,17 +130,23 @@ namespace Player
 
         public void ActivateBoost()
         {
+            CheckExistCoroutine();
             SetVelocityToZero();
+            SetDestinationPoint(out Vector3 destinationPoint);
+            _coroutine = StartCoroutine(ApplyBoost(destinationPoint));
+        }
 
-            var destinationPoint =
-                new Vector3(0f, transform.position.y + NextPositionYAfterBoost, transform.position.z);
-
+        private void CheckExistCoroutine()
+        {
             if (_coroutine != null)
             {
                 StopCoroutine(_coroutine);
             }
+        }
 
-            _coroutine = StartCoroutine(ApplyBoost(destinationPoint));
+        private void SetDestinationPoint(out Vector3 destinationPoint)
+        {
+            destinationPoint = new Vector3(0f, transform.position.y + NextPositionYAfterBoost, transform.position.z);
         }
 
         private IEnumerator ApplyBoost(Vector3 destinationPoint)
