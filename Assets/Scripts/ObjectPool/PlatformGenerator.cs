@@ -60,13 +60,10 @@ namespace ObjectPool
 
         private void AddBoost(GameObject platform)
         {
-            if (_randomChance.TryGetChance())
+            if (_randomChance.TryGetChance() && platform.GetComponentInChildren<PowerUp>() == false)
             {
-                if (platform.GetComponentInChildren<PowerUp>() == false)
-                {
-                    var boost = Instantiate(_boost, platform.transform.position,quaternion.identity);
-                    boost.transform.SetParent(platform.transform);
-                }
+                var boost = Instantiate(_boost, platform.transform.position,quaternion.identity);
+                boost.transform.SetParent(platform.transform);
             }
         }
         

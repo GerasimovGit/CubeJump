@@ -9,20 +9,14 @@ namespace Player
         private CubeMover _mover;
         private int _score;
 
-        public float YVelocity { get; private set; }
+        public event UnityAction GameOver;
+
+        public event UnityAction<int> ScoreChanged;
 
         private void Awake()
         {
             _mover = GetComponent<CubeMover>();
         }
-
-        private void Update()
-        {
-            YVelocity = _mover.YVelocity;
-        }
-
-        public event UnityAction GameOver;
-        public event UnityAction<int> ScoreChanged;
 
         public void ResetPlayer()
         {
@@ -36,9 +30,9 @@ namespace Player
             GameOver?.Invoke();
         }
 
-        public void AddScore()
+        public void AddScore(int scoreToAdd)
         {
-            _score++;
+            _score += scoreToAdd;
             ScoreChanged?.Invoke(_score);
         }
 

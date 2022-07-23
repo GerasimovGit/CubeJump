@@ -25,7 +25,8 @@ namespace Platforms
                 bool isStandAbovePlatform = cubeMover.transform.position.y - transform.position.y >=
                                             _platform.transform.localScale.y;
 
-                if (cubeMover.YVelocity <= 0f && cubeMover.transform.parent == null && isStandAbovePlatform)
+                if (cubeMover.YVelocity <= 0f && cubeMover.transform.parent == null && isStandAbovePlatform &&
+                    cubeMover.IsBoostActivate == false)
                 {
                     _platform.SetParent(cubeMover.transform);
 

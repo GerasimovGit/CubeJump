@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Player
@@ -7,6 +8,7 @@ namespace Player
     {
         [SerializeField] private CubeMover _cubeMover;
         [SerializeField] private Vector3 _cameraOffset;
+        [SerializeField] private float _moveUpCameraSpeed;
         [SerializeField] private float _speed;
         [SerializeField] private float _speedWhenBoost;
 
@@ -40,7 +42,7 @@ namespace Player
         private void MovePositionUp()
         {
             Vector3 transformPosition = transform.position;
-            transformPosition.y += 0.15f * Time.deltaTime;
+            transformPosition.y += _moveUpCameraSpeed * Time.deltaTime;
             transform.position = transformPosition;
         }
 

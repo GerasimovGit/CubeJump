@@ -21,6 +21,7 @@ namespace UI
         protected abstract void OnButtonClick();
 
         public abstract void Open();
+
         public abstract void Close();
     }
 }

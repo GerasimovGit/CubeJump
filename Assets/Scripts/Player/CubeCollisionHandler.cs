@@ -4,20 +4,23 @@ using Zones;
 
 namespace Player
 {
-    [RequireComponent(typeof(Cube))]
+    [RequireComponent(typeof(Cube), typeof(CubeMover))]
     public class CubeCollisionHandler : MonoBehaviour
     {
-        public UnityEvent OnObstacleHit;
         private Cube _cube;
+        private CubeMover _cubeMover;
+
+        public UnityEvent OnObstacleHit;
 
         private void Start()
         {
             _cube = GetComponent<Cube>();
+            _cubeMover = GetComponent<CubeMover>();
         }
 
         private void OnCollisionEnter2D(Collision2D other)
         {
-            if (other.gameObject.TryGetComponent(out Wall wall) || _cube.YVelocity < 0)
+            if (other.gameObject.TryGetComponent(out Wall wall) || _cubeMover.YVelocity < 0)
             {
                 OnObstacleHit?.Invoke();
             }
@@ -31,7 +34,7 @@ namespace Player
             }
             else if (other.TryGetComponent(out PowerUp powerUp))
             {
-                if (_cube.YVelocity <= 0f)
+                if (_cubeMover.YVelocity <= 0f)
                 {
                     _cube.OnPickUpBoost();
                 }

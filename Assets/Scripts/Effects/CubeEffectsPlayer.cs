@@ -4,12 +4,12 @@ using UnityEngine;
 namespace Effects
 {
     [RequireComponent(typeof(PlayParticlesEffects), typeof(PlaySoundEffects))]
-    public class GameEffectsPlayer : MonoBehaviour
+    public class CubeEffectsPlayer : MonoBehaviour
     {
         [SerializeField] private CubeMover _cubeMover;
 
-        private readonly string _BoostId = "Boost";
-        private readonly string _HitId = "Hit";
+        private readonly string _boostId = "Boost";
+        private readonly string _hitId = "Hit";
         private readonly string _jumpDownId = "JumpDown";
         private readonly string _jumpUpId = "JumpUp";
 
@@ -43,15 +43,15 @@ namespace Effects
         {
             if (_cubeMover.YVelocity > 0)
             {
-                _sound.Play(_HitId);
+                _sound.Play(_hitId);
             }
 
-            _particles.Play(_HitId);
+            _particles.Play(_hitId);
         }
 
         public void PlayBoostSfx()
         {
-            _sound.Play(_BoostId);
+            _sound.Play(_boostId);
         }
     }
 }

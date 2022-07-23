@@ -2,6 +2,7 @@
 
 namespace Platforms
 {
+    [RequireComponent(typeof(Platform))]
     public class PlatformMover : MonoBehaviour
     {
         [SerializeField] private Transform _path;

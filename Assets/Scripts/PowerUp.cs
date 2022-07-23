@@ -1,9 +1,13 @@
 using UnityEngine;
+using Zones;
 
 public class PowerUp : MonoBehaviour
 {
-    private void OnBecameInvisible()
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        Destroy(gameObject);
+        if (other.TryGetComponent(out GameOverZone gameOverZone))
+        {
+            Destroy(gameObject);
+        }
     }
 }

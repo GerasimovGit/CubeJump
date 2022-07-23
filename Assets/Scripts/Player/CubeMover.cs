@@ -17,14 +17,19 @@ namespace Player
 
         public UnityEvent OnPlatformChange;
         public UnityEvent OnBoostActivate;
+        public UnityEvent OnJump;
 
+        private readonly float _boostGravity = 0f;
+        private readonly float _speedOnBoost = 12f;
+
+        private float _defaultGravity;
+        private bool _isOnPlatform;
         private Coroutine _coroutine;
-        private GameEffectsPlayer _gameEffectsPlayer;
+        private CubeEffectsPlayer _cubeEffectsPlayer;
         private Vector3 _jumpPosition;
         private Platform _platform;
         private LayerCheck _platformCheck;
         private Rigidbody2D _rigidbody;
-        private bool  _isOnPlatform;
 
         public float NextPositionYAfterBoost => 25f;
 
@@ -38,7 +43,6 @@ namespace Player
 
         private void Awake()
         {
-            _gameEffectsPlayer = GetComponent<GameEffectsPlayer>();
             _rigidbody = GetComponent<Rigidbody2D>();
             _platformCheck = GetComponent<LayerCheck>();
         }
@@ -46,13 +50,12 @@ namespace Player
         private void Start()
         {
             ResetCube();
+            _defaultGravity = _rigidbody.gravityScale;
         }
 
         private void Update()
         {
-            YVelocity = _rigidbody.velocity.y;
-            IsJumpButtonPressed = Input.GetKeyDown(KeyCode.Space);
-            CheckSurroundings();
+            SetParameters();
             GetPlatformMoveDirection(out Vector2 direction);
             Jump(direction);
         }
@@ -64,33 +67,38 @@ namespace Player
 
         private void Jump(Vector2 moveDirection)
         {
-            if (Input.GetKeyDown(KeyCode.Space) == false) return;
+            if (IsBoostActivate) return;
 
-            if (_isOnPlatform)
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
             {
-                LastPlatformJumpPosition = transform.position;
+                OnJump?.Invoke();
 
-                if (moveDirection.x != 0)
+                if (_isOnPlatform)
                 {
-                    _rigidbody.AddForce(Vector2.up * _tapUpForce - moveDirection * _angleForce,
-                        ForceMode2D.Impulse);
+                    LastPlatformJumpPosition = transform.position;
+
+                    if (moveDirection.x != 0)
+                    {
+                        _rigidbody.AddForce(Vector2.up * _tapUpForce - moveDirection * _angleForce,
+                            ForceMode2D.Impulse);
+                    }
+                    else
+                    {
+                        _rigidbody.AddForce(Vector2.up * _tapUpForce, ForceMode2D.Impulse);
+                    }
                 }
                 else
                 {
-                    _rigidbody.AddForce(Vector2.up * _tapUpForce, ForceMode2D.Impulse);
+                    _rigidbody.AddForce(Vector3.down * _tapDownForce, ForceMode2D.Impulse);
                 }
             }
-            else
-            {
-                _rigidbody.AddForce(Vector3.down * _tapDownForce, ForceMode2D.Impulse);
-            }
-
-            _gameEffectsPlayer.PlayJumpVFX();
         }
 
-        private void CheckSurroundings()
+        private void SetParameters()
         {
+            YVelocity = _rigidbody.velocity.y;
             _isOnPlatform = _platformCheck.IsTouchingPlatform;
+            IsJumpButtonPressed = Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0);
         }
 
         private bool TryGetPlatform(out Platform result)
@@ -123,16 +131,16 @@ namespace Player
             transform.position = _startPosition;
         }
 
-        private void SetVelocityToZero()
+        private void SetRigidbodyGravity(float amount)
         {
-            _rigidbody.velocity = Vector2.zero;
+            _rigidbody.gravityScale = amount;
         }
 
         public void ActivateBoost()
         {
             CheckExistCoroutine();
-            SetVelocityToZero();
             SetDestinationPoint(out Vector3 destinationPoint);
+            SetRigidbodyGravity(_boostGravity);
             _coroutine = StartCoroutine(ApplyBoost(destinationPoint));
         }
 
@@ -153,15 +161,16 @@ namespace Player
         {
             IsBoostActivate = true;
             OnBoostActivate?.Invoke();
-
+            
             while (transform.position.y < destinationPoint.y)
             {
-                transform.position = Vector3.MoveTowards(transform.position, destinationPoint, 12f * Time.deltaTime);
-                SetVelocityToZero();
+                transform.position =
+                    Vector3.MoveTowards(transform.position, destinationPoint, _speedOnBoost * Time.deltaTime);
                 yield return null;
             }
 
             IsBoostActivate = false;
+            SetRigidbodyGravity(_defaultGravity);
         }
     }
 }
