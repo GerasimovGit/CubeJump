@@ -93,6 +93,7 @@ namespace ObjectPool
         {
             GameObject newPlatform = Instantiate(_startPlatform);
             SetPlatformPositionAfterBoost(newPlatform);
+            CreateNextPlatform();
         }
 
         private void SetPlatformPositionAfterBoost(GameObject newPlatform)

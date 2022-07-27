@@ -1,4 +1,6 @@
-﻿using UnityEngine.Events;
+﻿using System.Collections;
+using UnityEngine;
+using UnityEngine.Events;
 
 namespace UI
 {
@@ -22,5 +24,7 @@ namespace UI
             CanvasGroup.alpha = 0;
             Button.interactable = false;
         }
+
+
     }
 }

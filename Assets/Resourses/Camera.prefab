@@ -196,6 +196,7 @@ MonoBehaviour:
   _startScreen: {fileID: 0}
   _gameOverScreen: {fileID: 0}
   _cubeTracker: {fileID: 8344969825249081814}
+  _soundEffects: {fileID: 0}
 --- !u!114 &1771867608
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -472,7 +473,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2567723558463426815, guid: 4596ac5f60b15a24bbd8e0b9a1eb7dcd, type: 3}
       propertyPath: _chanceToSpawnBoost
-      value: 30
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3155009050416950660, guid: 4596ac5f60b15a24bbd8e0b9a1eb7dcd, type: 3}
       propertyPath: m_RootOrder

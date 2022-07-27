@@ -1,4 +1,5 @@
-﻿using ObjectPool;
+﻿using Effects;
+using ObjectPool;
 using Player;
 using UI;
 using UnityEngine;
@@ -10,10 +11,12 @@ public class Game : MonoBehaviour
     [SerializeField] private StartScreen _startScreen;
     [SerializeField] private GameOverScreen _gameOverScreen;
     [SerializeField] private CubeTracker _cubeTracker;
+    [SerializeField] private PlaySoundEffects _soundEffects;
 
     private void Start()
     {
         Time.timeScale = 0;
+        _soundEffects.TurnDownPitch();
         _startScreen.Open();
         _gameOverScreen.Close();
     }
@@ -50,11 +53,13 @@ public class Game : MonoBehaviour
     private void StartGame()
     {
         Time.timeScale = 1;
+        _soundEffects.PlayFromFade();
         _cube.ResetPlayer();
     }
 
     private void OnGameOver()
     {
+        _soundEffects.TurnDownPitch();
         Time.timeScale = 0;
         _gameOverScreen.Open();
     }

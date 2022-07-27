@@ -1,5 +1,4 @@
 using System.Collections;
-using Effects;
 using Platforms;
 using UnityEngine;
 using UnityEngine.Events;
@@ -39,8 +38,6 @@ namespace Player
 
         public bool IsBoostActivate { get; private set; }
 
-        public bool IsJumpButtonPressed { get; private set; }
-
         private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody2D>();
@@ -67,7 +64,7 @@ namespace Player
 
         private void Jump(Vector2 moveDirection)
         {
-            if (IsBoostActivate) return;
+            if (IsBoostActivate || Time.timeScale < 1) return;
 
             if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
             {
@@ -98,7 +95,6 @@ namespace Player
         {
             YVelocity = _rigidbody.velocity.y;
             _isOnPlatform = _platformCheck.IsTouchingPlatform;
-            IsJumpButtonPressed = Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0);
         }
 
         private bool TryGetPlatform(out Platform result)
@@ -141,6 +137,7 @@ namespace Player
             CheckExistCoroutine();
             SetDestinationPoint(out Vector3 destinationPoint);
             SetRigidbodyGravity(_boostGravity);
+            _rigidbody.velocity = Vector2.zero;
             _coroutine = StartCoroutine(ApplyBoost(destinationPoint));
         }
 
@@ -161,7 +158,7 @@ namespace Player
         {
             IsBoostActivate = true;
             OnBoostActivate?.Invoke();
-            
+
             while (transform.position.y < destinationPoint.y)
             {
                 transform.position =
