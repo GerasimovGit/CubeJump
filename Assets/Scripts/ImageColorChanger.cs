@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 
 public class ImageColorChanger : MonoBehaviour
 {
@@ -8,14 +7,14 @@ public class ImageColorChanger : MonoBehaviour
     private readonly float _maxAlpha = 1f;
     private readonly float _minAlpha = 0.25f;
 
-    public void TurnOffAlpha(Image image)
+    public void TurnOffAlpha(UnityEngine.UI.Image image)
     {
         _imageColor = image.color;
         _imageColor.a = _minAlpha;
         image.color = _imageColor;
     }
 
-    public void TurnOnAlpha(Image image)
+    public void TurnOnAlpha(UnityEngine.UI.Image image)
     {
         _imageColor = image.color;
         _imageColor.a = _maxAlpha;

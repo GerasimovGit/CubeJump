@@ -12,7 +12,7 @@ namespace Effects
 
         [SerializeField] private AudioSource _source;
         [SerializeField] private AudioData[] _sounds;
-        [SerializeField] private float _speed;
+        [SerializeField] private float _pitchChangeSpeed;
 
         public void Play(string id)
         {
@@ -47,24 +47,15 @@ namespace Effects
             _source.pitch = MINPitch;
         }
 
-        public void StopSong()
+        public void StopCurrentSong()
         {
             _source.Stop();
         }
 
-        private IEnumerator FadeOutPitch(float target)
-        {
-            while (_source.pitch != target)
-            {
-                _source.pitch = Mathf.MoveTowards(_source.pitch, target, _speed * Time.deltaTime);
-                yield return null;
-            }
-        }
-
-        public bool TryGetSong(AudioClip audioClip, out AudioData Song)
+        public bool TryGetSong(AudioClip audioClip, out AudioData song)
         {
             bool isExist = false;
-            Song = null;
+            song = null;
 
             foreach (var audioData in _sounds)
             {
@@ -73,12 +64,21 @@ namespace Effects
                     continue;
                 }
 
-                Song = audioData;
+                song = audioData;
                 isExist = true;
                 break;
             }
 
             return isExist;
+        }
+
+        private IEnumerator FadeOutPitch(float target)
+        {
+            while (_source.pitch != target)
+            {
+                _source.pitch = Mathf.MoveTowards(_source.pitch, target, _pitchChangeSpeed * Time.deltaTime);
+                yield return null;
+            }
         }
 
         [Serializable]

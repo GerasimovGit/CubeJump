@@ -13,13 +13,13 @@ namespace UI
 
         public override void Open()
         {
-            CanvasGroup.alpha = 1;
+            gameObject.SetActive(true);
             Button.interactable = true;
         }
 
         public override void Close()
         {
-            CanvasGroup.alpha = 0;
+            gameObject.SetActive(false);
             Button.interactable = false;
         }
     }

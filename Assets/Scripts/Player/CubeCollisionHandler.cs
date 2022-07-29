@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using Level;
+using UnityEngine;
 using UnityEngine.Events;
 using Zones;
 
@@ -32,9 +34,13 @@ namespace Player
             {
                 _cube.Die();
             }
-            else if (other.TryGetComponent(out PowerUp powerUp))
+        }
+
+        private void OnTriggerStay2D(Collider2D other)
+        {
+            if (other.TryGetComponent(out PowerUp powerUp))
             {
-                if (_cubeMover.YVelocity <= 0f)
+                if (_cubeMover.YVelocity <= 0f && _cubeMover.transform.parent != null)
                 {
                     _cube.OnPickUpBoost();
                 }

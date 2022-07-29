@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 namespace Player
 {
-    [RequireComponent(typeof(Rigidbody2D), typeof(LayerCheck))]
+    [RequireComponent(typeof(Rigidbody2D), typeof(LayerCheck), typeof(TouchUIChecker))]
     public class CubeMover : MonoBehaviour
     {
         [SerializeField] private Vector3 _startPosition;
@@ -25,10 +25,12 @@ namespace Player
         private bool _isOnPlatform;
         private Coroutine _coroutine;
         private CubeEffectsPlayer _cubeEffectsPlayer;
+        private Vector3 _defaultScale;
         private Vector3 _jumpPosition;
         private Platform _platform;
         private LayerCheck _platformCheck;
         private Rigidbody2D _rigidbody;
+        private TouchUIChecker _touchUIChecker;
 
         public float NextPositionYAfterBoost => 25f;
 
@@ -42,12 +44,14 @@ namespace Player
         {
             _rigidbody = GetComponent<Rigidbody2D>();
             _platformCheck = GetComponent<LayerCheck>();
+            _touchUIChecker = GetComponent<TouchUIChecker>();
         }
 
         private void Start()
         {
-            ResetCube();
+            _defaultScale = transform.localScale;
             _defaultGravity = _rigidbody.gravityScale;
+            ResetCube();
         }
 
         private void Update()
@@ -64,7 +68,7 @@ namespace Player
 
         private void Jump(Vector2 moveDirection)
         {
-            if (IsBoostActivate || Time.timeScale < 1) return;
+            if (IsBoostActivate || Time.timeScale < 1 || _touchUIChecker.IsTouchingUi) return;
 
             if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
             {
@@ -124,7 +128,13 @@ namespace Player
 
         public void ResetCube()
         {
+            CheckExistCoroutine();
+            IsBoostActivate = false;
+            transform.parent = null;
+            _rigidbody.velocity = Vector2.zero;
+            transform.localScale = _defaultScale;
             transform.position = _startPosition;
+            SetRigidbodyGravity(_defaultGravity);
         }
 
         private void SetRigidbodyGravity(float amount)
@@ -163,6 +173,7 @@ namespace Player
             {
                 transform.position =
                     Vector3.MoveTowards(transform.position, destinationPoint, _speedOnBoost * Time.deltaTime);
+
                 yield return null;
             }
 

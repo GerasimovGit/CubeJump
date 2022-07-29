@@ -22,18 +22,31 @@ namespace Songs
 
         private void Start()
         {
-            if (_soundEffects.TryGetSong(_audioClip, out var song))
-            {
-                _image.sprite = song.Image.sprite;
-            }
+            TrySetImage();
         }
 
         public void Play()
         {
-            _soundEffects.StopSong();
-            _soundEffects.PlaySelectedSong(_audioClip);
+            _soundEffects.StopCurrentSong();
+            TryPlaySelectedSong();
             _songButton.OnMouseDown();
             _colorChanger.TurnOnAlpha(_image);
+        }
+
+        private void TryPlaySelectedSong()
+        {
+            if (_soundEffects.TryGetSong(_audioClip, out var song))
+            {
+                _soundEffects.PlaySelectedSong(song.Clip);
+            }
+        }
+
+        private void TrySetImage()
+        {
+            if (_soundEffects.TryGetSong(_audioClip, out var song))
+            {
+                _image.sprite = song.Image.sprite;
+            }
         }
     }
 }
