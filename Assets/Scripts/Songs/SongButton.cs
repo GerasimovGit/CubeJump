@@ -4,19 +4,11 @@ using UnityEngine.UI;
 
 namespace Songs
 {
-    [RequireComponent(typeof(ImageColorChanger))]
     public class SongButton : MonoBehaviour
     {
         [SerializeField] private Button[] _songButtons;
 
         public UnityEvent OnButtonClick;
-
-        private ImageColorChanger _colorChanger;
-
-        private void Awake()
-        {
-            _colorChanger = GetComponent<ImageColorChanger>();
-        }
 
         private void Start()
         {
@@ -35,7 +27,9 @@ namespace Songs
             {
                 if (songButton.TryGetComponent(out Image image))
                 {
-                    _colorChanger.TurnOffAlpha(image);
+                    Color imageColor = image.color;
+                    imageColor.a = 0.25f;
+                    image.color = imageColor;
                 }
             }
         }

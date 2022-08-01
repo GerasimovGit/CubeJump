@@ -32,20 +32,6 @@ namespace Player
             transform.position = _defaultPosition;
         }
 
-        private void SetStartPosition()
-        {
-            transform.position =
-                new Vector3(_cameraOffset.x, _cubeMover.transform.position.y + _cameraOffset.y, _cameraOffset.z);
-            _defaultPosition = transform.position;
-        }
-
-        private void MovePositionUp()
-        {
-            Vector3 transformPosition = transform.position;
-            transformPosition.y += _moveUpCameraSpeed * Time.deltaTime;
-            transform.position = transformPosition;
-        }
-
         public void Follow()
         {
             StopCurrentCoroutine();
@@ -59,6 +45,20 @@ namespace Player
             {
                 _coroutine = StartCoroutine(ChangePosition(_finalPosition, _speed));
             }
+        }
+
+        private void SetStartPosition()
+        {
+            transform.position =
+                new Vector3(_cameraOffset.x, _cubeMover.transform.position.y + _cameraOffset.y, _cameraOffset.z);
+            _defaultPosition = transform.position;
+        }
+
+        private void MovePositionUp()
+        {
+            Vector3 transformPosition = transform.position;
+            transformPosition.y += _moveUpCameraSpeed * Time.deltaTime;
+            transform.position = transformPosition;
         }
 
         private void StopCurrentCoroutine()

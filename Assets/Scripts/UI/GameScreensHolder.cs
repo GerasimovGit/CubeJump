@@ -1,30 +1,29 @@
 ﻿using Effects;
-using Game;
+using Level;
 using Player;
 using UnityEngine;
 
 namespace UI
 {
-    [RequireComponent(typeof(GameStatesReloader))]
+    [RequireComponent(typeof(LevelData))]
     public class GameScreensHolder : MonoBehaviour
     {
         [SerializeField] private Cube _cube;
         [SerializeField] private StartScreen _startScreen;
-        [SerializeField] private GameScreen _gameScreen;
+        [SerializeField] private GameHud _gameHud;
         [SerializeField] private PauseScreen _pauseScreen;
         [SerializeField] private GameOverScreen _gameOverScreen;
-        [SerializeField] private PlaySoundEffects _soundEffects;
+        [SerializeField] private SoundEffects _soundEffects;
 
-        private GameStatesReloader _gameStates;
+        private LevelData _levelData;
 
         private void Awake()
         {
-            _gameStates = GetComponent<GameStatesReloader>();
+            _levelData = GetComponent<LevelData>();
         }
 
         private void Start()
         {
-            Application.targetFrameRate = 60;
             ShowStartScreen();
         }
 
@@ -33,7 +32,7 @@ namespace UI
             _startScreen.PlayButtonClick += OnGameStartButtonClick;
             _gameOverScreen.RestartButtonClick += OnRestartButtonClick;
             _pauseScreen.PauseButtonClick += OnPauseButtonClick;
-            _gameScreen.GameStartButtonClick += OnGameStartButtonClick;
+            _gameHud.GameStartButtonClick += OnGameStartButtonClick;
             _cube.GameOver += OnGameOver;
         }
 
@@ -42,23 +41,25 @@ namespace UI
             _startScreen.PlayButtonClick -= OnGameStartButtonClick;
             _gameOverScreen.RestartButtonClick -= OnRestartButtonClick;
             _pauseScreen.PauseButtonClick -= OnPauseButtonClick;
-            _gameScreen.GameStartButtonClick -= OnGameStartButtonClick;
+            _gameHud.GameStartButtonClick -= OnGameStartButtonClick;
             _cube.GameOver -= OnGameOver;
         }
 
-        public void OpenStartMenu()
-        {
-            ShowStartScreen();
-        }
-
-        private void ShowStartScreen()
+        public void ShowStartScreen()
         {
             _startScreen.Open();
             _gameOverScreen.Close();
             _pauseScreen.Close();
-            _gameScreen.Close();
+            _gameHud.Close();
             _soundEffects.TurnDownPitch();
             Time.timeScale = 0;
+        }
+
+        public void ResumeGame()
+        {
+            Time.timeScale = 1f;
+            _pauseScreen.Close();
+            _soundEffects.PlayFromFade();
         }
 
         private void OnGameStartButtonClick()
@@ -79,18 +80,11 @@ namespace UI
             Time.timeScale = 0f;
         }
 
-        private void ResumeGame()
-        {
-            Time.timeScale = 1f;
-            _pauseScreen.Close();
-            _soundEffects.PlayFromFade();
-        }
-
         private void StartGame()
         {
             Time.timeScale = 1f;
-            _gameStates.Reset();
-            _gameScreen.Open();
+            _gameHud.Open();
+            _levelData.Reset();
             _startScreen.Close();
             _soundEffects.PlayFromFade();
         }

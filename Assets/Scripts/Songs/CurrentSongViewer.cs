@@ -10,7 +10,7 @@ namespace Songs
         [SerializeField] private Image _spriteRenderer;
         [SerializeField] private TMP_Text _song;
         [SerializeField] private AudioSource _source;
-        [SerializeField] private PlaySoundEffects _soundEffects;
+        [SerializeField] private SoundEffects _soundEffects;
 
         private void Start()
         {

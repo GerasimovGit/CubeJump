@@ -6,9 +6,11 @@ using Random = UnityEngine.Random;
 
 namespace ObjectPool
 {
-    [RequireComponent(typeof(PlatformSizeChanger),typeof(RandomChanceHandler))]
     public class PlatformGenerator : ObjectPool
     {
+        private const int MAXRandomValue = 100;
+        private const int MINRandomValue = 0;
+
         [SerializeField] private CubeMover _cubeMover;
         [SerializeField] private GameObject _template;
         [SerializeField] private GameObject _startPlatform;
@@ -16,17 +18,16 @@ namespace ObjectPool
         [SerializeField] private Vector3 _startPlatformPosition;
         [SerializeField] private float _maxSpawnPositionX;
         [SerializeField] private float _minSpawnPositionX;
+        [SerializeField] private float _minPlatformWidth;
+        [SerializeField] private float _changeSizeValue;
         [SerializeField] private float _rangeBetweenPlatforms;
+        [SerializeField] private int _chanceToSpawnBoost;
 
-        private RandomChanceHandler _randomChance;
-        private PlatformSizeChanger _platformSizeChanger;
         private Vector3 _defaultPlatformPosition;
         private Vector3 _nextPlatformPosition;
 
         private void Awake()
         {
-            _randomChance = GetComponent<RandomChanceHandler>();
-            _platformSizeChanger = GetComponent<PlatformSizeChanger>();
             SetParameters();
         }
 
@@ -42,10 +43,11 @@ namespace ObjectPool
             DisableObjectAboardScreen();
         }
 
-        private void SetParameters()
+        public void ResetGenerator()
         {
-            _defaultPlatformPosition = transform.position;
             _nextPlatformPosition = _defaultPlatformPosition;
+            CreateFirstPlatform(_startPlatform, _startPlatformPosition);
+            CreateNextPlatform();
         }
 
         public void CreateNextPlatform()
@@ -54,20 +56,17 @@ namespace ObjectPool
             {
                 SetPosition(platform);
                 ChangePlatformSize(platform);
-                AddBoost(platform);
+                AddBoostWithRandomChance(platform);
                 platform.SetActive(true);
             }
         }
 
-        private void AddBoost(GameObject platform)
+        private void SetParameters()
         {
-            if (_randomChance.TryGetChance() && platform.GetComponentInChildren<PowerUp>() == false)
-            {
-                var boost = Instantiate(_boost, platform.transform.position,quaternion.identity);
-                boost.transform.SetParent(platform.transform);
-            }
+            _defaultPlatformPosition = transform.position;
+            _nextPlatformPosition = _defaultPlatformPosition;
         }
-        
+
         private void SetPosition(GameObject platform)
         {
             float spawnPositionX = Random.Range(_minSpawnPositionX, _maxSpawnPositionX);
@@ -78,16 +77,30 @@ namespace ObjectPool
 
         private void ChangePlatformSize(GameObject platform)
         {
-            _platformSizeChanger.ChangeSize(_template,platform,out Vector3 newPlatformSize);
-           platform.transform.localScale = newPlatformSize;
+            var newPlatformSize = CalculateNewPlatformSize(platform);
+            platform.transform.localScale = newPlatformSize;
         }
-        
 
-        public void ResetGenerator()
+        private Vector3 CalculateNewPlatformSize(GameObject platform)
         {
-            _nextPlatformPosition = _defaultPlatformPosition;
-            CreateFirstPlatform(_startPlatform, _startPlatformPosition);
-            CreateNextPlatform();
+            var newPlatformSize = _template.transform.localScale;
+            float currentPositionY = platform.transform.position.y;
+            float maxPlatformWidth = _template.transform.lossyScale.x;
+            float sizeAccordToPositionY = newPlatformSize.x - currentPositionY / _changeSizeValue;
+            newPlatformSize.x = Mathf.Clamp(sizeAccordToPositionY, _minPlatformWidth, maxPlatformWidth);
+            return newPlatformSize;
+        }
+
+        private void AddBoostWithRandomChance(GameObject platform)
+        {
+            int randomChanceValue = Random.Range(MINRandomValue, MAXRandomValue);
+            bool chance = randomChanceValue <= _chanceToSpawnBoost;
+
+            if (chance && platform.GetComponentInChildren<PowerUp>() == false)
+            {
+                GameObject boost = Instantiate(_boost, platform.transform.position, quaternion.identity);
+                boost.transform.SetParent(platform.transform);
+            }
         }
 
         public void CreatePlatformAfterBoost()
@@ -99,7 +112,7 @@ namespace ObjectPool
 
         private void SetPlatformPositionAfterBoost(GameObject newPlatform)
         {
-            var offsetY = 3.5f;
+            float offsetY = 3.5f;
             Vector3 position = new Vector3(0f,
                 _cubeMover.transform.position.y + _cubeMover.NextPositionYAfterBoost - offsetY,
                 0f);

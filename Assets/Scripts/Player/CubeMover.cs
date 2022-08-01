@@ -23,12 +23,12 @@ namespace Player
 
         private float _defaultGravity;
         private bool _isOnPlatform;
-        private Coroutine _coroutine;
-        private CubeEffectsPlayer _cubeEffectsPlayer;
         private Vector3 _defaultScale;
         private Vector3 _jumpPosition;
-        private Platform _platform;
+        private Coroutine _coroutine;
+        private CubeEffects _cubeEffects;
         private LayerCheck _platformCheck;
+        private Platform _platform;
         private Rigidbody2D _rigidbody;
         private TouchUIChecker _touchUIChecker;
 
@@ -66,6 +66,47 @@ namespace Player
             ApplyFallGravity();
         }
 
+        public void ResetCube()
+        {
+            StopCurrentCoroutine();
+            IsBoostActivate = false;
+            transform.parent = null;
+            transform.position = _startPosition;
+            transform.localScale = _defaultScale;
+            _rigidbody.velocity = Vector2.zero;
+            SetGravity(_defaultGravity);
+        }
+
+        private void SetParameters()
+        {
+            YVelocity = _rigidbody.velocity.y;
+            _isOnPlatform = _platformCheck.IsTouchingPlatform;
+        }
+
+        private void ApplyFallGravity()
+        {
+            if (YVelocity < 0)
+            {
+                _rigidbody.velocity += Vector2.up * Physics.gravity * (_fallMultiplier * Time.deltaTime);
+            }
+        }
+
+        private bool TryGetPlatform(out Platform result)
+        {
+            result = gameObject.GetComponentInParent<Platform>();
+            return result != null;
+        }
+
+        private void GetPlatformMoveDirection(out Vector2 direction)
+        {
+            direction = Vector2.zero;
+
+            if (TryGetPlatform(out Platform platform))
+            {
+                direction = platform.Direction;
+            }
+        }
+
         private void Jump(Vector2 moveDirection)
         {
             if (IsBoostActivate || Time.timeScale < 1 || _touchUIChecker.IsTouchingUi) return;
@@ -95,68 +136,26 @@ namespace Player
             }
         }
 
-        private void SetParameters()
-        {
-            YVelocity = _rigidbody.velocity.y;
-            _isOnPlatform = _platformCheck.IsTouchingPlatform;
-        }
-
-        private bool TryGetPlatform(out Platform result)
-        {
-            result = gameObject.GetComponentInParent<Platform>();
-
-            return result != null;
-        }
-
-        private void GetPlatformMoveDirection(out Vector2 direction)
-        {
-            direction = Vector2.zero;
-
-            if (TryGetPlatform(out Platform platform))
-            {
-                direction = platform.Direction;
-            }
-        }
-
-        private void ApplyFallGravity()
-        {
-            if (YVelocity < 0)
-            {
-                _rigidbody.velocity += Vector2.up * Physics.gravity * (_fallMultiplier * Time.deltaTime);
-            }
-        }
-
-        public void ResetCube()
-        {
-            CheckExistCoroutine();
-            IsBoostActivate = false;
-            transform.parent = null;
-            _rigidbody.velocity = Vector2.zero;
-            transform.localScale = _defaultScale;
-            transform.position = _startPosition;
-            SetRigidbodyGravity(_defaultGravity);
-        }
-
-        private void SetRigidbodyGravity(float amount)
-        {
-            _rigidbody.gravityScale = amount;
-        }
-
         public void ActivateBoost()
         {
-            CheckExistCoroutine();
-            SetDestinationPoint(out Vector3 destinationPoint);
-            SetRigidbodyGravity(_boostGravity);
+            StopCurrentCoroutine();
+            SetGravity(_boostGravity);
             _rigidbody.velocity = Vector2.zero;
+            SetDestinationPoint(out Vector3 destinationPoint);
             _coroutine = StartCoroutine(ApplyBoost(destinationPoint));
         }
 
-        private void CheckExistCoroutine()
+        private void StopCurrentCoroutine()
         {
             if (_coroutine != null)
             {
                 StopCoroutine(_coroutine);
             }
+        }
+
+        private void SetGravity(float amount)
+        {
+            _rigidbody.gravityScale = amount;
         }
 
         private void SetDestinationPoint(out Vector3 destinationPoint)
@@ -178,7 +177,7 @@ namespace Player
             }
 
             IsBoostActivate = false;
-            SetRigidbodyGravity(_defaultGravity);
+            SetGravity(_defaultGravity);
         }
     }
 }

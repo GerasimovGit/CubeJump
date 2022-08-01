@@ -143,18 +143,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _source: {fileID: 1002014702}
   _sounds:
-  - _id: 1
+  - _id: 
     _clip: {fileID: 8300000, guid: f683d312885e9d8489f63ca03a18f0ad, type: 3}
-    _image: {fileID: 5905286136121218522, guid: 247a592230e650448bfedbf669466e5c, type: 3}
-  - _id: 2
-    _clip: {fileID: 8300000, guid: 6c879ec156741924eb153bbb6d12a8a1, type: 3}
-    _image: {fileID: 6397352753369957184, guid: 3edd312719afb8448b958a02d2f176ca, type: 3}
-  - _id: 3
-    _clip: {fileID: 8300000, guid: 786da09d2f5b9b045934de684d57882e, type: 3}
-    _image: {fileID: 4436572625497114689, guid: e60fa44830f3e0e42a160f00c3d12be6, type: 3}
-  - _id: 4
-    _clip: {fileID: 8300000, guid: 6f89ec6f2b7e7ec41a749a3eccdafdc1, type: 3}
-    _image: {fileID: 0}
+    _image: {fileID: 242124452736043341, guid: aeb118fc24fa79348a9259a6bf99528e, type: 3}
+  - _id: 
+    _clip: {fileID: 8300000, guid: 92f1c385cd5563142a1ce4b1b06c31b7, type: 3}
+    _image: {fileID: 1103538283018159959, guid: 5f7178d2524c7f848b6fef978783b481, type: 3}
+  - _id: 
+    _clip: {fileID: 8300000, guid: c5219691740a03f498d75cc730014880, type: 3}
+    _image: {fileID: 1103538283018159959, guid: e17adffb5b3eb204eafe5fd032b9e17d, type: 3}
+  - _id: 
+    _clip: {fileID: 8300000, guid: 91b02d65c4b61ab469da08671630b2f3, type: 3}
+    _image: {fileID: 1103538283018159959, guid: 0ebdedfc1eb542d4cb48ac195dc2a010, type: 3}
+  - _id: 
+    _clip: {fileID: 8300000, guid: 707ea8e371e85634991285a485392bfb, type: 3}
+    _image: {fileID: 1103538283018159959, guid: e234fdc9feebee547bef471f20b8a08a, type: 3}
+  - _id: 
+    _clip: {fileID: 8300000, guid: 6a9ccd8ecfa7fce4aae8a4d7e28e9c29, type: 3}
+    _image: {fileID: 1103538283018159959, guid: 84374baf6cf33394c89a5c3e29137e88, type: 3}
+  - _id: 
+    _clip: {fileID: 8300000, guid: 3d925a052794f0e4c8d65ca7e68f7cc6, type: 3}
+    _image: {fileID: 1103538283018159959, guid: 00161aac182e26f429ced29189f60d37, type: 3}
+  - _id: 
+    _clip: {fileID: 8300000, guid: 4f304049a70bf9b42a8490b452a9ec13, type: 3}
+    _image: {fileID: 1103538283018159959, guid: 1ab64d3c1573fc14c9c997ae77e061a4, type: 3}
   _pitchChangeSpeed: 0.8
 --- !u!1 &1003953568
 GameObject:
@@ -680,7 +692,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 633fd764d6f7b12418b7541f23a52bf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startPosition: {x: 0, y: -2.8, z: 0}
+  _startPosition: {x: 0, y: -2.885, z: 0}
   _tapUpForce: 12
   _tapDownForce: 20
   _angleForce: 7

@@ -20,20 +20,19 @@ namespace Platforms
 
         private void OnCollisionStay2D(Collision2D other)
         {
-            if (other.gameObject.TryGetComponent(out CubeMover cubeMover))
+            if (!other.gameObject.TryGetComponent(out CubeMover cubeMover)) return;
+
+            bool isStandAbovePlatform = cubeMover.transform.position.y - transform.position.y >=
+                                        _platform.transform.localScale.y;
+
+            if (cubeMover.YVelocity <= 0f && cubeMover.transform.parent == null && isStandAbovePlatform &&
+                cubeMover.IsBoostActivate == false)
             {
-                bool isStandAbovePlatform = cubeMover.transform.position.y - transform.position.y >=
-                                            _platform.transform.localScale.y;
+                _platform.SetParent(cubeMover.transform);
 
-                if (cubeMover.YVelocity <= 0f && cubeMover.transform.parent == null && isStandAbovePlatform &&
-                    cubeMover.IsBoostActivate == false)
+                if (cubeMover.LastPlatformJumpPosition.y < transform.position.y)
                 {
-                    _platform.SetParent(cubeMover.transform);
-
-                    if (cubeMover.LastPlatformJumpPosition.y < transform.position.y)
-                    {
-                        cubeMover.OnPlatformChange?.Invoke();
-                    }
+                    cubeMover.OnPlatformChange?.Invoke();
                 }
             }
         }

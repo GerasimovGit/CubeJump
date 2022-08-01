@@ -4,19 +4,17 @@ using UnityEngine.UI;
 
 namespace Songs
 {
-    [RequireComponent(typeof(ImageColorChanger), typeof(Image))]
+    [RequireComponent(typeof(Image))]
     public class SongSelector : MonoBehaviour
     {
-        [SerializeField] private PlaySoundEffects _soundEffects;
+        [SerializeField] private SoundEffects _soundEffects;
         [SerializeField] private SongButton _songButton;
         [SerializeField] private AudioClip _audioClip;
-
-        private ImageColorChanger _colorChanger;
+        
         private Image _image;
 
         private void Awake()
         {
-            _colorChanger = GetComponent<ImageColorChanger>();
             _image = GetComponent<Image>();
         }
 
@@ -30,7 +28,7 @@ namespace Songs
             _soundEffects.StopCurrentSong();
             TryPlaySelectedSong();
             _songButton.OnMouseDown();
-            _colorChanger.TurnOnAlpha(_image);
+            HighlightImage();
         }
 
         private void TryPlaySelectedSong()
@@ -47,6 +45,13 @@ namespace Songs
             {
                 _image.sprite = song.Image.sprite;
             }
+        }
+
+        private void HighlightImage()
+        {
+            Color imageColor = _image.color;
+            imageColor.a = 1f;
+            _image.color = imageColor;
         }
     }
 }

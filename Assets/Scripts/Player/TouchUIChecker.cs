@@ -19,7 +19,7 @@ namespace Player
             if (Input.touchCount <= 0 || Input.touches[0].phase != TouchPhase.Began) return false;
 
             if (EventSystem.current.IsPointerOverGameObject(Input.touches[0].fingerId)) return true;
-            Debug.Log(IsTouchingUi);
+            
             return false;
         }
     }
