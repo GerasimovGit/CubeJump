@@ -201,7 +201,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _path: {fileID: 8848439494377149611, guid: 2d735a0bc78e5ef42a1ac5f24882a38c, type: 3}
-  _speed: 4
+  _speed: 5
 --- !u!114 &2802816711968848806
 MonoBehaviour:
   m_ObjectHideFlags: 0
