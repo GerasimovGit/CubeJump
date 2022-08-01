@@ -15,6 +15,14 @@ namespace ObjectPool
 
         private Camera _camera;
 
+        public void ResetPool()
+        {
+            foreach (var item in _pool)
+            {
+                item.SetActive(false);
+            }
+        }
+
         protected void Initialize(GameObject prefab)
         {
             _camera = Camera.main;
@@ -51,14 +59,6 @@ namespace ObjectPool
                         item.SetActive(false);
                     }
                 }
-            }
-        }
-
-        public void ResetPool()
-        {
-            foreach (var item in _pool)
-            {
-                item.SetActive(false);
             }
         }
     }

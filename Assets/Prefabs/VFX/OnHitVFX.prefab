@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 134925926676792601}
   - component: {fileID: 134925926676792602}
   m_Layer: 0
-  m_Name: TrashVFX
+  m_Name: OnHitVFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

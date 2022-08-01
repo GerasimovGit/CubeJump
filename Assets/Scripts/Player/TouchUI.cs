@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 
 namespace Player
 {
-    public class TouchUIChecker : MonoBehaviour
+    public class TouchUI : MonoBehaviour
     {
         public bool IsTouchingUi { get; private set; }
 

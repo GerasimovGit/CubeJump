@@ -383,6 +383,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2a834438c644554fbff6b44693cb9ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2005461752 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6572952999890120605, guid: 34110b9b6d3879a468deb4d0fdb48505, type: 3}
+  m_PrefabInstance: {fileID: 6572952999383684490}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cac99accc68d975498c050d06e5e0d81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &592447462382790755
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -587,10 +598,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4503213223316958819, guid: b0030d6b9a6532947a80b90daf61e786, type: 3}
-      propertyPath: m_Padding.m_Bottom
-      value: 20
-      objectReference: {fileID: 0}
     - target: {fileID: 4503213223480304927, guid: b0030d6b9a6532947a80b90daf61e786, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -650,10 +657,6 @@ PrefabInstance:
     - target: {fileID: 4503213223550537211, guid: b0030d6b9a6532947a80b90daf61e786, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4503213223578856253, guid: b0030d6b9a6532947a80b90daf61e786, type: 3}
-      propertyPath: m_Padding.m_Bottom
-      value: 160
       objectReference: {fileID: 0}
     - target: {fileID: 4503213223715542065, guid: b0030d6b9a6532947a80b90daf61e786, type: 3}
       propertyPath: m_Camera
@@ -960,14 +963,6 @@ PrefabInstance:
       propertyPath: _cube
       value: 
       objectReference: {fileID: 1192618182}
-    - target: {fileID: 6572952999890120607, guid: 34110b9b6d3879a468deb4d0fdb48505, type: 3}
-      propertyPath: m_fontColor.a
-      value: 0.88235295
-      objectReference: {fileID: 0}
-    - target: {fileID: 6572952999890120607, guid: 34110b9b6d3879a468deb4d0fdb48505, type: 3}
-      propertyPath: m_fontColor32.rgba
-      value: 3791650815
-      objectReference: {fileID: 0}
     - target: {fileID: 6572953000574575753, guid: 34110b9b6d3879a468deb4d0fdb48505, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1126,7 +1121,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1192618182}
     - target: {fileID: 8344969825249081810, guid: 0c615ba3085c6ce4b8bf464569c2f8ce, type: 3}
-      propertyPath: _gameScreen
+      propertyPath: _score
+      value: 
+      objectReference: {fileID: 2005461752}
+    - target: {fileID: 8344969825249081810, guid: 0c615ba3085c6ce4b8bf464569c2f8ce, type: 3}
+      propertyPath: _gameHud
       value: 
       objectReference: {fileID: 640247368}
     - target: {fileID: 8344969825249081810, guid: 0c615ba3085c6ce4b8bf464569c2f8ce, type: 3}
@@ -1193,10 +1192,6 @@ PrefabInstance:
       propertyPath: _cubeMover
       value: 
       objectReference: {fileID: 1192618186}
-    - target: {fileID: 8344969825249081814, guid: 0c615ba3085c6ce4b8bf464569c2f8ce, type: 3}
-      propertyPath: _moveUpCameraSpeed
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 8344969825249081815, guid: 0c615ba3085c6ce4b8bf464569c2f8ce, type: 3}
       propertyPath: m_Name
       value: Camera

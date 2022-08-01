@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 namespace Player
 {
-    [RequireComponent(typeof(Rigidbody2D), typeof(LayerCheck), typeof(TouchUIChecker))]
+    [RequireComponent(typeof(Rigidbody2D), typeof(LayerCheck), typeof(TouchUI))]
     public class CubeMover : MonoBehaviour
     {
         [SerializeField] private Vector3 _startPosition;
@@ -30,7 +30,7 @@ namespace Player
         private LayerCheck _platformCheck;
         private Platform _platform;
         private Rigidbody2D _rigidbody;
-        private TouchUIChecker _touchUIChecker;
+        private TouchUI _touchUI;
 
         public float NextPositionYAfterBoost => 25f;
 
@@ -44,7 +44,7 @@ namespace Player
         {
             _rigidbody = GetComponent<Rigidbody2D>();
             _platformCheck = GetComponent<LayerCheck>();
-            _touchUIChecker = GetComponent<TouchUIChecker>();
+            _touchUI = GetComponent<TouchUI>();
         }
 
         private void Start()
@@ -109,7 +109,7 @@ namespace Player
 
         private void Jump(Vector2 moveDirection)
         {
-            if (IsBoostActivate || Time.timeScale < 1 || _touchUIChecker.IsTouchingUi) return;
+            if (IsBoostActivate || Time.timeScale < 1 || _touchUI.IsTouchingUi) return;
 
             if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
             {

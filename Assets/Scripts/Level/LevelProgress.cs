@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Level
 {
-    public class LevelData : MonoBehaviour
+    public class LevelProgress : MonoBehaviour
     {
         [SerializeField] private Cube _cube;
         [SerializeField] private CubeTracker _cubeTracker;

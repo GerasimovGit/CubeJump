@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Score
+namespace ScoreData
 {
     public class ScoreZone : MonoBehaviour
     {

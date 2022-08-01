@@ -25,11 +25,6 @@ namespace Effects
             }
         }
 
-        public void PlayFromFade()
-        {
-            StartCoroutine(FadeOutPitch(MAXPitch));
-        }
-
         public void PlaySelectedSong(AudioClip audioClip)
         {
             foreach (var audioData in _sounds)
@@ -40,16 +35,6 @@ namespace Effects
                 _source.Play();
                 break;
             }
-        }
-
-        public void TurnDownPitch()
-        {
-            _source.pitch = MINPitch;
-        }
-
-        public void StopCurrentSong()
-        {
-            _source.Stop();
         }
 
         public bool TryGetSong(AudioClip audioClip, out AudioData song)
@@ -70,6 +55,21 @@ namespace Effects
             }
 
             return isExist;
+        }
+
+        public void StopCurrentSong()
+        {
+            _source.Stop();
+        }
+
+        public void TurnDownPitch()
+        {
+            _source.pitch = MINPitch;
+        }
+
+        public void PlayFromFade()
+        {
+            StartCoroutine(FadeOutPitch(MAXPitch));
         }
 
         private IEnumerator FadeOutPitch(float target)

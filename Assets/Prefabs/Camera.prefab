@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8344969824600929048}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.4, y: 0, z: 0}
+  m_LocalPosition: {x: -3.35, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -191,7 +191,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cubeMover: {fileID: 0}
   _cameraOffset: {x: 0, y: 3.6, z: -10}
-  _moveUpCameraSpeed: 0.25
+  _moveUpCameraSpeed: 0.5
   _speed: 4
   _speedWhenBoost: 0.55
 --- !u!114 &8344969825249081810
@@ -207,8 +207,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cube: {fileID: 0}
+  _score: {fileID: 0}
   _startScreen: {fileID: 0}
-  _gameScreen: {fileID: 0}
+  _gameHud: {fileID: 0}
   _pauseScreen: {fileID: 0}
   _gameOverScreen: {fileID: 0}
   _soundEffects: {fileID: 0}
@@ -324,7 +325,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8344969826087044617}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.4, y: 0, z: 0}
+  m_LocalPosition: {x: 3.35, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

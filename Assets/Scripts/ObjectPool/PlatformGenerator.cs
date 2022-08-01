@@ -50,6 +50,13 @@ namespace ObjectPool
             CreateNextPlatform();
         }
 
+        public void CreatePlatformAfterBoost()
+        {
+            GameObject newPlatform = Instantiate(_startPlatform);
+            SetPlatformPositionAfterBoost(newPlatform);
+            CreateNextPlatform();
+        }
+
         public void CreateNextPlatform()
         {
             if (TryGetObject(out GameObject platform))
@@ -59,6 +66,16 @@ namespace ObjectPool
                 AddBoostWithRandomChance(platform);
                 platform.SetActive(true);
             }
+        }
+
+        private void SetPlatformPositionAfterBoost(GameObject newPlatform)
+        {
+            float offsetY = 3.5f;
+            Vector3 position = new Vector3(0f,
+                _cubeMover.transform.position.y + _cubeMover.NextPositionYAfterBoost - offsetY,
+                0f);
+            newPlatform.transform.position = position;
+            _nextPlatformPosition.y = position.y;
         }
 
         private void SetParameters()
@@ -101,23 +118,6 @@ namespace ObjectPool
                 GameObject boost = Instantiate(_boost, platform.transform.position, quaternion.identity);
                 boost.transform.SetParent(platform.transform);
             }
-        }
-
-        public void CreatePlatformAfterBoost()
-        {
-            GameObject newPlatform = Instantiate(_startPlatform);
-            SetPlatformPositionAfterBoost(newPlatform);
-            CreateNextPlatform();
-        }
-
-        private void SetPlatformPositionAfterBoost(GameObject newPlatform)
-        {
-            float offsetY = 3.5f;
-            Vector3 position = new Vector3(0f,
-                _cubeMover.transform.position.y + _cubeMover.NextPositionYAfterBoost - offsetY,
-                0f);
-            newPlatform.transform.position = position;
-            _nextPlatformPosition.y = position.y;
         }
     }
 }

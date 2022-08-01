@@ -1,7 +1,7 @@
 ﻿using Player;
 using UnityEngine;
 
-namespace Score
+namespace ScoreData
 {
     [RequireComponent(typeof(Animator))]
     public class ScoreAnimator : MonoBehaviour
@@ -9,7 +9,7 @@ namespace Score
         [SerializeField] private Cube _cube;
 
         private readonly int _scoreChanged = Animator.StringToHash("ScoreChanged");
-        
+
         private Animator _animator;
 
         private void Awake()

@@ -1,25 +1,27 @@
 ﻿using Effects;
 using Level;
 using Player;
+using ScoreData;
 using UnityEngine;
 
 namespace UI
 {
-    [RequireComponent(typeof(LevelData))]
+    [RequireComponent(typeof(LevelProgress))]
     public class GameScreensHolder : MonoBehaviour
     {
         [SerializeField] private Cube _cube;
+        [SerializeField] private Score _score;
         [SerializeField] private StartScreen _startScreen;
         [SerializeField] private GameHud _gameHud;
         [SerializeField] private PauseScreen _pauseScreen;
         [SerializeField] private GameOverScreen _gameOverScreen;
         [SerializeField] private SoundEffects _soundEffects;
 
-        private LevelData _levelData;
+        private LevelProgress _levelProgress;
 
         private void Awake()
         {
-            _levelData = GetComponent<LevelData>();
+            _levelProgress = GetComponent<LevelProgress>();
         }
 
         private void Start()
@@ -48,6 +50,7 @@ namespace UI
         public void ShowStartScreen()
         {
             _startScreen.Open();
+            _score.ShowHighScore();
             _gameOverScreen.Close();
             _pauseScreen.Close();
             _gameHud.Close();
@@ -84,7 +87,7 @@ namespace UI
         {
             Time.timeScale = 1f;
             _gameHud.Open();
-            _levelData.Reset();
+            _levelProgress.Reset();
             _startScreen.Close();
             _soundEffects.PlayFromFade();
         }
