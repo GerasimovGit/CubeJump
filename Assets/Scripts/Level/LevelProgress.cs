@@ -12,7 +12,7 @@ namespace Level
 
         public void Reset()
         {
-            _cube.ResetPlayer();
+            _cube.Reset();
             _cubeTracker.ResetCamera();
             _platformGenerator.ResetPool();
             _platformGenerator.ResetGenerator();

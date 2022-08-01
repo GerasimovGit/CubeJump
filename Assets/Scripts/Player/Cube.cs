@@ -27,7 +27,7 @@ namespace Player
             GetHighscore();
         }
 
-        public void ResetPlayer()
+        public void Reset()
         {
             _score = 0;
             ScoreChanged?.Invoke(_score);

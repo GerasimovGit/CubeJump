@@ -446,19 +446,19 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 592447461192990882, guid: 99e418af6d86bd14db8a7abf03620fde, type: 3}
-      propertyPath: OnBoostActivate.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      propertyPath: BoostActivated.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1852309592}
     - target: {fileID: 592447461192990882, guid: 99e418af6d86bd14db8a7abf03620fde, type: 3}
-      propertyPath: OnBoostActivate.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      propertyPath: BoostActivated.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1641525281}
     - target: {fileID: 592447461192990882, guid: 99e418af6d86bd14db8a7abf03620fde, type: 3}
-      propertyPath: OnPlatformChange.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      propertyPath: PlatformChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1641525281}
     - target: {fileID: 592447461192990882, guid: 99e418af6d86bd14db8a7abf03620fde, type: 3}
-      propertyPath: OnPlatformChange.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      propertyPath: PlatformChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1852309592}
     - target: {fileID: 592447461192990883, guid: 99e418af6d86bd14db8a7abf03620fde, type: 3}
@@ -466,7 +466,7 @@ PrefabInstance:
       value: Cube
       objectReference: {fileID: 0}
     - target: {fileID: 592447461192990886, guid: 99e418af6d86bd14db8a7abf03620fde, type: 3}
-      propertyPath: OnObstacleHit.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      propertyPath: ObstacleHited.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1641525283}
     m_RemovedComponents: []
@@ -915,10 +915,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1641525287}
-    - target: {fileID: 778943551932244523, guid: 34110b9b6d3879a468deb4d0fdb48505, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -0.15983582
-      objectReference: {fileID: 0}
     - target: {fileID: 1780088286817053657, guid: 34110b9b6d3879a468deb4d0fdb48505, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -942,10 +938,6 @@ PrefabInstance:
     - target: {fileID: 2138336018737984444, guid: 34110b9b6d3879a468deb4d0fdb48505, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4623208653628645411, guid: 34110b9b6d3879a468deb4d0fdb48505, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -1.6642151
       objectReference: {fileID: 0}
     - target: {fileID: 6572952999183172416, guid: 34110b9b6d3879a468deb4d0fdb48505, type: 3}
       propertyPath: m_AnchorMax.y
@@ -971,10 +963,6 @@ PrefabInstance:
       propertyPath: _cube
       value: 
       objectReference: {fileID: 1192618182}
-    - target: {fileID: 6572953000325677367, guid: 34110b9b6d3879a468deb4d0fdb48505, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -3
-      objectReference: {fileID: 0}
     - target: {fileID: 6572953000574575753, guid: 34110b9b6d3879a468deb4d0fdb48505, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1128,10 +1116,6 @@ PrefabInstance:
       propertyPath: _cubeMover
       value: 
       objectReference: {fileID: 1192618186}
-    - target: {fileID: 6343198941399650509, guid: 0c615ba3085c6ce4b8bf464569c2f8ce, type: 3}
-      propertyPath: _changeSizeValue
-      value: 500
-      objectReference: {fileID: 0}
     - target: {fileID: 8344969825249081810, guid: 0c615ba3085c6ce4b8bf464569c2f8ce, type: 3}
       propertyPath: _cube
       value: 

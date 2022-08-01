@@ -32,7 +32,7 @@ namespace Platforms
 
                 if (cubeMover.LastPlatformJumpPosition.y < transform.position.y)
                 {
-                    cubeMover.OnPlatformChange?.Invoke();
+                    cubeMover.PlatformChanged?.Invoke();
                 }
             }
         }

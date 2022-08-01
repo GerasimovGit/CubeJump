@@ -14,12 +14,12 @@ namespace Player
         [SerializeField] private float _angleForce;
         [SerializeField] private float _fallMultiplier;
 
-        public UnityEvent OnPlatformChange;
-        public UnityEvent OnBoostActivate;
-        public UnityEvent OnJump;
+        public UnityEvent PlatformChanged;
+        public UnityEvent BoostActivated;
+        public UnityEvent Jumped;
 
         private readonly float _boostGravity = 0f;
-        private readonly float _speedOnBoost = 12f;
+        private readonly float _boostDuration = 2.25f;
 
         private float _defaultGravity;
         private bool _isOnPlatform;
@@ -113,7 +113,7 @@ namespace Player
 
             if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
             {
-                OnJump?.Invoke();
+                Jumped?.Invoke();
 
                 if (_isOnPlatform)
                 {
@@ -142,7 +142,7 @@ namespace Player
             SetGravity(_boostGravity);
             _rigidbody.velocity = Vector2.zero;
             SetDestinationPoint(out Vector3 destinationPoint);
-            _coroutine = StartCoroutine(ApplyBoost(destinationPoint));
+            _coroutine = StartCoroutine(LerpToPoint(destinationPoint));
         }
 
         private void StopCurrentCoroutine()
@@ -163,19 +163,22 @@ namespace Player
             destinationPoint = new Vector3(0f, transform.position.y + NextPositionYAfterBoost, transform.position.z);
         }
 
-        private IEnumerator ApplyBoost(Vector3 destinationPoint)
+        private IEnumerator LerpToPoint(Vector3 destinationPoint)
         {
             IsBoostActivate = true;
-            OnBoostActivate?.Invoke();
-
-            while (transform.position.y < destinationPoint.y)
+            BoostActivated?.Invoke();
+            float timeElapsed = 0;
+            Vector3 startPosition = transform.position;
+            
+            while (timeElapsed < _boostDuration)
             {
                 transform.position =
-                    Vector3.MoveTowards(transform.position, destinationPoint, _speedOnBoost * Time.deltaTime);
-
+                    Vector3.Lerp(startPosition, destinationPoint, timeElapsed/_boostDuration);
+                timeElapsed += Time.deltaTime;
                 yield return null;
             }
 
+            transform.position = destinationPoint;
             IsBoostActivate = false;
             SetGravity(_defaultGravity);
         }

@@ -562,7 +562,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3155009050416950661, guid: 4596ac5f60b15a24bbd8e0b9a1eb7dcd, type: 3}
       propertyPath: _chanceToSpawnBoost
-      value: 15
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 3155009050416950663, guid: 4596ac5f60b15a24bbd8e0b9a1eb7dcd, type: 3}
       propertyPath: m_Name

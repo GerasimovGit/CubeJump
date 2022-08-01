@@ -8,7 +8,7 @@ namespace Player
     [RequireComponent(typeof(Cube), typeof(CubeMover))]
     public class CubeCollisionHandler : MonoBehaviour
     {
-        public UnityEvent OnObstacleHit;
+        public UnityEvent ObstacleHited;
         
         private Cube _cube;
         private CubeMover _cubeMover;
@@ -23,7 +23,7 @@ namespace Player
         {
             if (other.gameObject.TryGetComponent(out Wall wall) || _cubeMover.YVelocity < 0)
             {
-                OnObstacleHit?.Invoke();
+                ObstacleHited?.Invoke();
             }
         }
 

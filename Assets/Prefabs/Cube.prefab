@@ -697,12 +697,24 @@ MonoBehaviour:
   _tapDownForce: 20
   _angleForce: 7
   _fallMultiplier: 6
-  OnPlatformChange:
+  PlatformChanged:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: CodeBase.Player.CubeTracker, Assembly-CSharp
+        m_TargetAssemblyTypeName: Player.CubeTracker, Assembly-CSharp
         m_MethodName: Follow
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: ObjectPool.PlatformGenerator, Assembly-CSharp
+        m_MethodName: CreateNextPlatform
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -724,23 +736,11 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: CodeBase.ObjectPool.PlatformGenerator, Assembly-CSharp
-        m_MethodName: CreateNextPlatform
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnBoostActivate:
+  BoostActivated:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: CodeBase.ObjectPool.PlatformGenerator, Assembly-CSharp
+        m_TargetAssemblyTypeName: ObjectPool.PlatformGenerator, Assembly-CSharp
         m_MethodName: CreatePlatformAfterBoost
         m_Mode: 1
         m_Arguments:
@@ -752,7 +752,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: CodeBase.Player.CubeTracker, Assembly-CSharp
+        m_TargetAssemblyTypeName: Player.CubeTracker, Assembly-CSharp
         m_MethodName: Follow
         m_Mode: 1
         m_Arguments:
@@ -761,18 +761,6 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1192618196}
-        m_TargetAssemblyTypeName: Effects.GameEffects, Assembly-CSharp
-        m_MethodName: PlayBoostSfx
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Boost
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 592447461192990885}
@@ -787,11 +775,23 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  OnJump:
+      - m_Target: {fileID: 1192618196}
+        m_TargetAssemblyTypeName: Player.CubeEffects, Assembly-CSharp
+        m_MethodName: PlayBoostSfx
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  Jumped:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1192618196}
-        m_TargetAssemblyTypeName: Effects.CubeEffectsPlayer, Assembly-CSharp
+        m_TargetAssemblyTypeName: Player.CubeEffects, Assembly-CSharp
         m_MethodName: PlayJumpVFX
         m_Mode: 1
         m_Arguments:
@@ -814,11 +814,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 105662a7822a4b58a7b074646cf9a1e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnObstacleHit:
+  ObstacleHited:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: CodeBase.CameraShake, Assembly-CSharp
+        m_TargetAssemblyTypeName: Effects.CameraEffects, Assembly-CSharp
         m_MethodName: Shake
         m_Mode: 1
         m_Arguments:
@@ -830,7 +830,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1192618196}
-        m_TargetAssemblyTypeName: CodeBase.Particles, Assembly-CSharp
+        m_TargetAssemblyTypeName: Player.CubeEffects, Assembly-CSharp
         m_MethodName: PlayCollisionVFX
         m_Mode: 1
         m_Arguments:
