@@ -51,7 +51,7 @@ namespace Player
         {
             _defaultScale = transform.localScale;
             _defaultGravity = _rigidbody.gravityScale;
-            ResetCube();
+            Reset();
         }
 
         private void Update()
@@ -66,7 +66,7 @@ namespace Player
             ApplyFallGravity();
         }
 
-        public void ResetCube()
+        public void Reset()
         {
             StopCurrentCoroutine();
             IsBoostActivate = false;

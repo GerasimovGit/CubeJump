@@ -31,7 +31,7 @@ namespace Player
         {
             _score = 0;
             ScoreChanged?.Invoke(_score);
-            _mover.ResetCube();
+            _mover.Reset();
         }
 
         public void Die()
